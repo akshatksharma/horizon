@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
+import ATProtoKit
 
 struct ContentView: View {
+    @Environment(BlueskyAgent.self) private var agent
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text(agent.userSession.handle)
         }
         .padding()
     }
@@ -21,4 +21,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(BlueskyAgent.mockAgent)
 }

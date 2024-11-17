@@ -17,4 +17,10 @@ public class BlueskyAgent {
         self.userSession = userSession
         self.atProtoClient = atProtoClient
     }
+    
+    static var mockAgent: BlueskyAgent {
+        let mockUserSession = UserSession(handle: "?", sessionDID: "0", isEmailAuthenticationFactorEnabled: false, accessToken: "0", refreshToken: "0", isActive: false, status: .none)
+        let mockClient = ATProtoKit()
+        return BlueskyAgent(userSession: mockUserSession, atProtoClient: mockClient)
+    }
 }
