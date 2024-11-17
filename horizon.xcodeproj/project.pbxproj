@@ -195,6 +195,9 @@
 			);
 			mainGroup = 026E94082CEA2BFA00C90DE0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				026E94412CEA3BC500C90DE0 /* XCRemoteSwiftPackageReference "ATProtoKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 026E94122CEA2BFA00C90DE0 /* Products */;
 			projectDirPath = "";
@@ -552,6 +555,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		026E94412CEA3BC500C90DE0 /* XCRemoteSwiftPackageReference "ATProtoKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MasterJ93/ATProtoKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.19.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 026E94092CEA2BFA00C90DE0 /* Project object */;
 }
