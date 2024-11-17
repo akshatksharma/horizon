@@ -6,9 +6,9 @@
 //
 
 import Testing
-@testable import horizon
+@testable import Horizon
 
-struct horizonTests {
+struct HorizonTests {
 
     @Test func example() async throws {
         // Write your test here and use APIs like `#expect(...)` to check expected conditions.

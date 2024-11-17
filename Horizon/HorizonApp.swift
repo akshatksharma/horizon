@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct horizonApp: App {
+struct HorizonApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
