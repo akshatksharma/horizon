@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0248D8AB2CEB17120005E408 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0248D8AA2CEB17120005E408 /* KeychainSwift */; };
 		026E94472CEA61DF00C90DE0 /* ATProtoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 026E94462CEA61DF00C90DE0 /* ATProtoKit */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0248D8AB2CEB17120005E408 /* KeychainSwift in Frameworks */,
 				026E94472CEA61DF00C90DE0 /* ATProtoKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +128,7 @@
 			name = Horizon;
 			packageProductDependencies = (
 				026E94462CEA61DF00C90DE0 /* ATProtoKit */,
+				0248D8AA2CEB17120005E408 /* KeychainSwift */,
 			);
 			productName = horizon;
 			productReference = 026E94112CEA2BFA00C90DE0 /* Horizon.app */;
@@ -211,6 +214,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				026E94412CEA3BC500C90DE0 /* XCRemoteSwiftPackageReference "ATProtoKit" */,
+				0248D8A92CEB17120005E408 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 026E94122CEA2BFA00C90DE0 /* Products */;
@@ -573,6 +577,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0248D8A92CEB17120005E408 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 24.0.0;
+			};
+		};
 		026E94412CEA3BC500C90DE0 /* XCRemoteSwiftPackageReference "ATProtoKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MasterJ93/ATProtoKit.git";
@@ -584,6 +596,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0248D8AA2CEB17120005E408 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0248D8A92CEB17120005E408 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
 		026E94462CEA61DF00C90DE0 /* ATProtoKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 026E94412CEA3BC500C90DE0 /* XCRemoteSwiftPackageReference "ATProtoKit" */;
