@@ -8,18 +8,34 @@
 import SwiftUI
 import ATProtoKit
 
+private enum Tabs: Equatable, Hashable {
+    case home
+    case profile
+}
+
 struct ContentView: View {
     @Environment(BlueskyAgent.self) private var agent
+    @State private var selectedTab: Tabs = .home
+    
+    private var profileViewModel: ProfileView.ViewModel {
+        ProfileView.ViewModel(actorDID: agent.userSession.sessionDID, profileDef: agent.userInfo)
+    }
     
     var body: some View {
         VStack {
-            Text(agent.userSession.handle)
+            TabView(selection: $selectedTab) {
+                Tab("Home", systemImage: "house", value: .home) {
+                    HomeView()
+                }
+                Tab("Profile", systemImage: "person", value: .profile) {
+                    ProfileView(viewModel: profileViewModel)
+                }
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
-        .environment(BlueskyAgent.mockAgent)
+        .environment(MockBlueskyAgent() as BlueskyAgent)
 }

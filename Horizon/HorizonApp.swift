@@ -22,15 +22,8 @@ struct HorizonApp: App {
         WindowGroup {
             VStack {
                 if let agent {
-                    VStack {
-                        ContentView()
-                            .environment(agent)
-                        
-                        Button("Logout") {
-                            logout()
-                        }
-                        .padding()
-                    }
+                    ContentView()
+                        .environment(agent)
                 } else {
                     VStack(alignment: .leading) {
                         TextField("Username", text: $handle)
