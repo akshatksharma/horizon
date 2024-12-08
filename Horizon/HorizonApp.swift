@@ -11,39 +11,29 @@ import KeychainSwift
 
 @main
 struct HorizonApp: App {
-    @State var agent: BlueskyAgent?
-    @State private var handle: String = ""
-    @State private var password: String = ""
+    private enum SessionStatus {
+        case authenticated(BlueskyAgent)
+        case notAuthenticated
+        case loading
+    }
     
+    @State private var sessionStatus: SessionStatus = .loading
     private let keychain = KeychainSwift()
     private let userSessionKey = "userSession"
     
     var body: some Scene {
         WindowGroup {
-            VStack {
-                if let agent {
+            VStack(alignment: .leading) {
+                switch sessionStatus {
+                case .authenticated(let agent):
                     ContentView()
                         .environment(agent)
-                } else {
-                    VStack(alignment: .leading) {
-                        TextField("Username", text: $handle)
-                            .textFieldStyle(.roundedBorder)
-                            .padding(.horizontal)
-                            .textInputAutocapitalization(.never)
-                        
-                        SecureField("Password", text: $password) 
-                            .textFieldStyle(.roundedBorder)
-                            .padding(.horizontal)
-                        
-                        Button("Login") {
-                            Task {
-                                await login(handle: handle, appPassword: password)
-                                self.handle = ""
-                                self.password = ""
-                            }
-                        }
-                        .padding(.horizontal, 24)
+                case .notAuthenticated:
+                    LoginView() { handle, password in
+                        await login(handle: handle, appPassword: password)
                     }
+                case .loading:
+                    ProgressView()
                 }
             }.task {
                 await loadSession()
@@ -55,10 +45,11 @@ struct HorizonApp: App {
         // Try to load existing session from keychain
         guard let sessionData = keychain.getData(userSessionKey),
               let userSession = try? JSONDecoder().decode(UserSession.self, from: sessionData) else {
+            self.sessionStatus = .notAuthenticated
             return
         }
         
-        self.agent = BlueskyAgent(userSession: userSession)
+        self.sessionStatus = .authenticated(BlueskyAgent(userSession: userSession))
     }
     
     private func login(handle: String, appPassword: String) async {
@@ -69,14 +60,15 @@ struct HorizonApp: App {
             if let sessionData = try? JSONEncoder().encode(userSession) {
                 keychain.set(sessionData, forKey: userSessionKey)
             }
-            self.agent = BlueskyAgent(userSession: userSession)
+            self.sessionStatus = .authenticated(BlueskyAgent(userSession: userSession))
         } catch {
+            self.sessionStatus = .notAuthenticated
             print(error)
         }
     }
     
     private func logout() {
         keychain.delete(userSessionKey)
-        self.agent = nil
+        self.sessionStatus = .notAuthenticated
     }
 }
