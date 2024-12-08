@@ -6,10 +6,12 @@
 //
 
 import ATProtoKit
+import Shimmer
 import SwiftUI
 
 struct ProfileHeaderView: View {
     let profileDef: AppBskyLexicon.Actor.ProfileViewDetailedDefinition
+    let imageLength = 100.0
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,15 +23,17 @@ struct ProfileHeaderView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .clipShape(Circle())
-                            .frame(width: 100, height: 100)
+                            .frame(width: imageLength, height: imageLength)
                     case .failure(_):
                         Image(systemName: "person.circle")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .clipShape(Circle())
-                            .frame(width: 100, height: 100)
+                            .frame(width: imageLength, height: imageLength)
                     default:
-                        ProgressView()
+                        Circle()
+                            .fill(Color.gray)
+                            .frame(width: imageLength, height: imageLength)
                     }
                 }
             } else {
@@ -37,7 +41,7 @@ struct ProfileHeaderView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipShape(Circle())
-                    .frame(width: 100, height: 100)
+                    .frame(width: imageLength, height: imageLength)
             }
             
             if let displayName = profileDef.displayName {
