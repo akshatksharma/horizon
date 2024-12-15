@@ -12,17 +12,20 @@ extension ProfileView {
     @Observable
     class ViewModel {
         let actorDID: String
-        private(set) var profileDef: AppBskyLexicon.Actor.ProfileViewDetailedDefinition?
+        private(set) var profileDetails: AppBskyLexicon.Actor.ProfileViewDetailedDefinition?
+        private(set) var tabs: [AppBskyLexicon.Feed.GetAuthorFeed.Filter]
         
-        init(actorDID: String, profileDef: AppBskyLexicon.Actor.ProfileViewDetailedDefinition? = nil) {
+        init(actorDID: String,
+             profileDetails: AppBskyLexicon.Actor.ProfileViewDetailedDefinition? = nil) {
             self.actorDID = actorDID
-            self.profileDef = profileDef
+            self.profileDetails = profileDetails
+            self.tabs = [.postsWithNoReplies, .postsWithReplies, .postsWithMedia]
         }
         
         func fetchProfileDefIfNeeded(atProtoClient: ATProtoKit) async {
-            guard profileDef == nil else { return }
+            guard profileDetails == nil else { return }
             // TODO @akshatksharma: handle error
-            self.profileDef = try? await atProtoClient.getProfile(actorDID)
+            self.profileDetails = try? await atProtoClient.getProfile(actorDID)
         }
     }
 }

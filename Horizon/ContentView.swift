@@ -18,7 +18,8 @@ struct ContentView: View {
     @State private var selectedTab: Tabs = .home
     
     private var profileViewModel: ProfileView.ViewModel {
-        ProfileView.ViewModel(actorDID: agent.userSession.sessionDID, profileDef: agent.userInfo)
+        ProfileView.ViewModel(actorDID: agent.userSession.sessionDID,
+                              profileDetails: agent.userInfo)
     }
     
     var body: some View {
