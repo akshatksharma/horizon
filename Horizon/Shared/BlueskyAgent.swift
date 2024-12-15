@@ -10,13 +10,14 @@ import ATProtoKit
 
 @Observable
 public class BlueskyAgent {
-    public internal(set) var userSession: UserSession
+    public var userSession: UserSession? {
+        atProtoClient.session
+    }
     public internal(set) var userInfo: AppBskyLexicon.Actor.ProfileViewDetailedDefinition?
     public internal(set) var atProtoClient: ATProtoKit
     
-    init(userSession: UserSession) {
-        self.userSession = userSession
-        self.atProtoClient = ATProtoKit(session: userSession)
+    init(config: ATProtocolConfiguration) {
+        self.atProtoClient = ATProtoKit(sessionConfiguration: config)
         Task {
             self.userInfo = await fetchUserInfoIfNeeded()
         }
@@ -24,7 +25,7 @@ public class BlueskyAgent {
     
     func fetchUserInfoIfNeeded() async -> AppBskyLexicon.Actor.ProfileViewDetailedDefinition? {
         // TODO @akshatksharma: add failure logic here
-        guard userInfo == nil else { return nil }
-        return try? await atProtoClient.getProfile(userSession.sessionDID)
+        guard userInfo == nil, let sessionDID = atProtoClient.session?.sessionDID else { return nil }
+        return try? await atProtoClient.getProfile(sessionDID)
     }
 }

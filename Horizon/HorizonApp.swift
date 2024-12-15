@@ -43,24 +43,25 @@ struct HorizonApp: App {
     
     private func loadSession() async {
         // Try to load existing session from keychain
-        guard let sessionData = keychain.getData(userSessionKey),
-              let userSession = try? JSONDecoder().decode(UserSession.self, from: sessionData) else {
-            self.sessionStatus = .notAuthenticated
-            return
-        }
+//        guard let sessionData = keychain.getData(userSessionKey),
+//              let userSession = try? JSONDecoder().decode(UserSession.self, from: sessionData) else {
+//            self.sessionStatus = .notAuthenticated
+//            return
+//        }
         
-        self.sessionStatus = .authenticated(BlueskyAgent(userSession: userSession))
+//        self.sessionStatus = .authenticated(BlueskyAgent(userSession: userSession))
+        self.sessionStatus = .notAuthenticated
     }
     
     private func login(handle: String, appPassword: String) async {
         let config = ATProtocolConfiguration(handle: handle, appPassword: appPassword)
         do {
-            let userSession = try await config.authenticate()
+            try await config.authenticate()
             // Save session to keychain
-            if let sessionData = try? JSONEncoder().encode(userSession) {
-                keychain.set(sessionData, forKey: userSessionKey)
-            }
-            self.sessionStatus = .authenticated(BlueskyAgent(userSession: userSession))
+//            if let sessionData = try? JSONEncoder().encode(userSession) {
+//                keychain.set(sessionData, forKey: userSessionKey)
+//            }
+            self.sessionStatus = .authenticated(BlueskyAgent(config: config))
         } catch {
             self.sessionStatus = .notAuthenticated
             print(error)

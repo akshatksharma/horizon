@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MasterJ93/ATProtoKit.git",
       "state" : {
-        "revision" : "c63d987916c67c57c56c1b411c6dd1bb04c6d173",
-        "version" : "0.20.2"
+        "revision" : "3a700fd83fd2f34c0b594d30b725454f967f8a4f",
+        "version" : "0.21.1"
       }
     },
     {

@@ -3,4 +3,254 @@
    uuid = "800C4635-BE46-4663-AFB8-914AB39B3533"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F508D56A-CCC1-4B90-A45B-4650AD38150E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Horizon/Shared/Feeds/FeedView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "241310D4-56EA-40D9-BBE7-EC5F57F22F05"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Horizon/Shared/Feeds/FeedDataSource.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "fetchPosts()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "241310D4-56EA-40D9-BBE7-EC5F57F22F05 - e83cdd664e46d986"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Horizon.FeedDataSource.fetchPosts() async throws -&gt; ()"
+                  moduleName = "Horizon.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshatsharma/Projects/horizon/horizon-client/horizon/Horizon/Shared/Feeds/FeedDataSource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25">
+               </Location>
+               <Location
+                  uuid = "241310D4-56EA-40D9-BBE7-EC5F57F22F05 - fd1ee20efa5f5bad"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (ATProtoKit.AppBskyLexicon.Feed.FeedViewPostDefinition) -&gt; Swift.Optional&lt;Horizon.FeedViewPost.ViewModel&gt; in Horizon.FeedDataSource.fetchPosts() async throws -&gt; ()"
+                  moduleName = "Horizon.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshatsharma/Projects/horizon/horizon-client/horizon/Horizon/Shared/Feeds/FeedDataSource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "665FEC28-1721-4E60-8675-DE31FA9DF7A0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Horizon/Features/Profile/ProfileFeedView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DE4C72D4-5F88-4C4F-B8EC-5A6EC482D644"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Horizon/Features/Profile/ProfileFeedView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "DE4C72D4-5F88-4C4F-B8EC-5A6EC482D644 - e0f716c19c823b55"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 () async -&gt; Swift.Array&lt;ATProtoKit.AppBskyLexicon.Feed.FeedViewPostDefinition&gt; in Horizon.ProfileFeedView.body.getter : some"
+                  moduleName = "Horizon.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshatsharma/Projects/horizon/horizon-client/horizon/Horizon/Features/Profile/ProfileFeedView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22">
+               </Location>
+               <Location
+                  uuid = "DE4C72D4-5F88-4C4F-B8EC-5A6EC482D644 - 9dc249aa40ae0554"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 () async -&gt; Swift.Array&lt;ATProtoKit.AppBskyLexicon.Feed.FeedViewPostDefinition&gt; in Horizon.ProfileFeedView.body.getter : some"
+                  moduleName = "Horizon.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshatsharma/Projects/horizon/horizon-client/horizon/Horizon/Features/Profile/ProfileFeedView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4A6DC47B-084A-408C-B027-1AF62E719973"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Horizon/Features/Profile/ProfileFeedView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1A1912D5-F1C3-4A1C-BB48-AA911AEE50CB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/Horizon-depbuvtuppsqcycbtvjjdrmyftaq/SourcePackages/checkouts/ATProtoKit/Sources/ATProtoKit/APIReference/SessionManager/APIReference/RefreshSession.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "refreshSession(using:pdsURL:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0417E6BB-FF18-4C97-8BAB-A403B53A4F69"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/Horizon-depbuvtuppsqcycbtvjjdrmyftaq/SourcePackages/checkouts/ATProtoKit/Sources/ATProtoKit/APIReference/SessionManager/APIReference/RefreshSession.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "refreshSession(using:pdsURL:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0417E6BB-FF18-4C97-8BAB-A403B53A4F69 - ea6e6fd7e0acebc6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for ATProtoKit.ATProtocolConfiguration.refreshSession(using: Swift.String, pdsURL: Swift.Optional&lt;Swift.String&gt;) async throws -&gt; ATProtoKit.UserSession"
+                  moduleName = "Horizon.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshatsharma/Library/Developer/Xcode/DerivedData/Horizon-depbuvtuppsqcycbtvjjdrmyftaq/SourcePackages/checkouts/ATProtoKit/Sources/ATProtoKit/APIReference/SessionManager/APIReference/RefreshSession.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33">
+               </Location>
+               <Location
+                  uuid = "0417E6BB-FF18-4C97-8BAB-A403B53A4F69 - 6c3acbd08b5a73ca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for ATProtoKit.ATProtocolConfiguration.refreshSession(using: Swift.String, pdsURL: Swift.Optional&lt;Swift.String&gt;) async throws -&gt; ATProtoKit.UserSession"
+                  moduleName = "Horizon.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshatsharma/Library/Developer/Xcode/DerivedData/Horizon-depbuvtuppsqcycbtvjjdrmyftaq/SourcePackages/checkouts/ATProtoKit/Sources/ATProtoKit/APIReference/SessionManager/APIReference/RefreshSession.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33">
+               </Location>
+               <Location
+                  uuid = "0417E6BB-FF18-4C97-8BAB-A403B53A4F69 - 32afe0df764f15cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for ATProtoKit.ATProtocolConfiguration.refreshSession(using: Swift.String, pdsURL: Swift.Optional&lt;Swift.String&gt;) async throws -&gt; ATProtoKit.UserSession"
+                  moduleName = "Horizon.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/akshatsharma/Library/Developer/Xcode/DerivedData/Horizon-depbuvtuppsqcycbtvjjdrmyftaq/SourcePackages/checkouts/ATProtoKit/Sources/ATProtoKit/APIReference/SessionManager/APIReference/RefreshSession.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E40EB196-099A-4F30-9420-3F53298E978E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/Horizon-depbuvtuppsqcycbtvjjdrmyftaq/SourcePackages/checkouts/ATProtoKit/Sources/ATProtoKit/APIReference/SessionManager/APIReference/RefreshSession.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "refreshSession(using:pdsURL:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2FE94EAE-1355-4A93-992F-3CF565B63577"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/Horizon-depbuvtuppsqcycbtvjjdrmyftaq/SourcePackages/checkouts/ATProtoKit/Sources/ATProtoKit/APIReference/SessionManager/APIReference/RefreshSession.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "refreshSession(using:pdsURL:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

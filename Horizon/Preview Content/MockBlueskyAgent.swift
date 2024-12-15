@@ -11,14 +11,15 @@ import SwiftUI
 @Observable
 public class MockBlueskyAgent: BlueskyAgent {
     init() {
-        let userSession = UserSession(handle: "notakshat.bsky.social",
-                                       sessionDID: "0",
-                                       isEmailAuthenticationFactorEnabled: false,
-                                       accessToken: "0",
-                                       refreshToken: "0",
-                                       isActive: false,
-                                       status: .none)
-        super.init(userSession: userSession)
+//        let userSession = UserSession(handle: "notakshat.bsky.social",
+//                                       sessionDID: "0",
+//                                       isEmailAuthenticationFactorEnabled: false,
+//                                       accessToken: "0",
+//                                       refreshToken: "0",
+//                                       isActive: false,
+//                                       status: .none)
+        let config = ATProtocolConfiguration(handle: "notakshat.bsky.social", appPassword: "0")
+        super.init(config: config)
     }
     
     override func fetchUserInfoIfNeeded() async -> AppBskyLexicon.Actor.ProfileViewDetailedDefinition? {
