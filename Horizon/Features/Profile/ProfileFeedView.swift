@@ -9,11 +9,19 @@ import ATProtoKit
 import SwiftUI
 
 struct ProfileFeedView: View {
+    @Environment(BlueskyAgent.self) private var agent
     let filter: AppBskyLexicon.Feed.GetAuthorFeed.Filter
     
     var body: some View {
-        LazyVStack {
-        }
+        FeedView(dataSource: FeedDataSource(fetchPostModels: {
+            do {
+                let myFeed = try await agent.atProtoClient.getAuthorFeed(by: agent.userSession.handle)
+                return myFeed.feed
+            } catch {
+                print(error)
+                return []
+            }
+        }))
     }
 }
    

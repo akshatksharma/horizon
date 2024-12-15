@@ -9,7 +9,7 @@ import ATProtoKit
 import Foundation
 import SwiftUI
 
-public extension FeedPostView {
+public extension FeedViewPost {
     class ViewModel: Identifiable {
         
         public var id: String { postURI }
@@ -62,11 +62,11 @@ public extension FeedPostView {
 
 public extension AppBskyLexicon.Feed.FeedViewPostDefinition {
     // TODO @akshatksharma: make this throwable and handle errors
-    func toFeedPostViewModel() -> FeedPostView.ViewModel? {
+    func toFeedViewPostViewModel() -> FeedViewPost.ViewModel? {
         switch post.record {
         case .record(let record):
             guard let postRecord = record as? AppBskyLexicon.Feed.PostRecord else { return nil }
-            return FeedPostView.ViewModel(author: post.author,
+            return FeedViewPost.ViewModel(author: post.author,
                                           createdAt: postRecord.createdAt,
                                           postURI: post.postURI,
                                           text: postRecord.text,

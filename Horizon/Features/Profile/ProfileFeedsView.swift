@@ -55,8 +55,8 @@ struct ProfileFeedsView: View {
                 ForEach(tabs) { tab in
                     ProfileFeedView(filter: tab)
                         .containerRelativeFrame(.horizontal,
-                                             count: 1,
-                                             spacing: 0)
+                                                count: 1,
+                                                spacing: 0)
                         .id(tab)
                 }
             }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct FeedPostView: View {
+public struct FeedViewPost: View {
     public var body: some View {
         Text("Hello, World!")
     }
