@@ -10,7 +10,7 @@ import Shimmer
 import SwiftUI
 
 struct ProfileInfoView: View {
-    let profileDetails: AppBskyLexicon.Actor.ProfileViewDetailedDefinition
+    let profileDetails: UserModel
     let imageLength = 100.0
     
     var body: some View {

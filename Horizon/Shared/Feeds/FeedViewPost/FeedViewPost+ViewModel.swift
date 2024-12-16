@@ -15,7 +15,7 @@ public extension FeedViewPost {
         public var id: String { postURI }
         
         /// The author of the post. This will give the basic details of the post author.
-        public let author: AppBskyLexicon.Actor.ProfileViewBasicDefinition
+        public let author: UserModel
         
         /// The client specified timestamp for when the post was created
         public let createdAt: Date
@@ -25,6 +25,12 @@ public extension FeedViewPost {
         
         /// The text contained in the post.
         public let text: String
+        
+        /// The references to posts when replying. Optional.
+        public var reply: AppBskyLexicon.Feed.ReplyReferenceDefinition?
+        
+        /// The user who reposted the post. Optional.
+        public var repostReason: ATUnion.ReasonRepostUnion?
         
         /// The number of replies in the post. Optional.
         public let replyCount: Int?
@@ -38,10 +44,12 @@ public extension FeedViewPost {
         /// The number of quote posts in the post. Optional.
         public let quoteCount: Int?
         
-        public init(author: AppBskyLexicon.Actor.ProfileViewBasicDefinition,
+        public init(author: UserModel,
                     createdAt: Date,
                     postURI: String,
                     text: String,
+                    reply: AppBskyLexicon.Feed.ReplyReferenceDefinition?,
+                    repostReason: ATUnion.ReasonRepostUnion?,
                     replyCount: Int?,
                     repostCount: Int?,
                     likeCount: Int?,
@@ -50,6 +58,8 @@ public extension FeedViewPost {
             self.createdAt = createdAt
             self.postURI = postURI
             self.text = text
+            self.reply = reply
+            self.repostReason = repostReason
             self.replyCount = replyCount
             self.repostCount = repostCount
             self.likeCount = likeCount
@@ -66,10 +76,12 @@ public extension AppBskyLexicon.Feed.FeedViewPostDefinition {
         switch post.record {
         case .record(let record):
             guard let postRecord = record as? AppBskyLexicon.Feed.PostRecord else { return nil }
-            return FeedViewPost.ViewModel(author: post.author,
+            return FeedViewPost.ViewModel(author: post.author.toUserModel(),
                                           createdAt: postRecord.createdAt,
                                           postURI: post.postURI,
                                           text: postRecord.text,
+                                          reply: reply,
+                                          repostReason: reason,
                                           replyCount: post.replyCount,
                                           repostCount: post.repostCount,
                                           likeCount: post.likeCount,

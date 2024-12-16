@@ -13,6 +13,13 @@ class FeedDataSource {
     
     private(set) var posts: [FeedViewPost.ViewModel] = []
     
+    var topLevelPosts: [FeedViewPost.ViewModel]  {
+        let filteredPosts = posts.filter { post in
+            post.reply == nil
+        }
+        return filteredPosts
+    }
+    
     private let fetchPostModels: () async throws -> [AppBskyLexicon.Feed.FeedViewPostDefinition]
     
     init(fetchPostModels: @escaping () async throws -> [AppBskyLexicon.Feed.FeedViewPostDefinition]) {
@@ -25,7 +32,5 @@ class FeedDataSource {
         self.posts = postsModels.compactMap {
             $0.toFeedViewPostViewModel()
         }
-        
-        // handle pagination (in the fetcher)
     }
 }

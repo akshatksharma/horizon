@@ -20,7 +20,7 @@ struct ContentView: View {
     private var profileViewModel: ProfileView.ViewModel {
         // TODO @akshatksharma: fix this optional
         ProfileView.ViewModel(actorDID: agent.userSession?.sessionDID ?? "",
-                              profileDetails: agent.userInfo)
+                              profileDetails: agent.userInfo?.toUserModel())
     }
     
     var body: some View {

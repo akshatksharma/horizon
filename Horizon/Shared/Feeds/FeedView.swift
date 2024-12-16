@@ -11,9 +11,10 @@ struct FeedView: View {
     @State var dataSource: FeedDataSource
     
     var body: some View {
-        VStack {
-            ForEach(dataSource.posts) { post in
-                Text(post.text)
+        LazyVStack {
+            ForEach(dataSource.topLevelPosts) { post in
+                FeedViewPost(viewModel: post)
+                    .padding(.bottom, 12)
             }
         }.task {
             do {

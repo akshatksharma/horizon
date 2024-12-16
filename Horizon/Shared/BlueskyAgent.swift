@@ -19,6 +19,12 @@ public class BlueskyAgent {
     init(config: ATProtocolConfiguration) {
         self.atProtoClient = ATProtoKit(sessionConfiguration: config)
         Task {
+            if let refreshToken = userSession?.refreshToken {
+                let session = try? await atProtoClient.refreshSession(refreshToken: refreshToken)
+                if let session {
+                    NSLog(session.refreshToken)
+                }
+            }
             self.userInfo = await fetchUserInfoIfNeeded()
         }
     }
