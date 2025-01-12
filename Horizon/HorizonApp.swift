@@ -17,13 +17,10 @@ struct HorizonApp: App {
         case loading
     }
     
+    @Environment(\.scenePhase) var scenePhase
     @State private var sessionStatus: SessionStatus = .loading
-    private let keychain = KeychainSwift()
-//    private let refreshTokenKey = "horizon-refreshToken"
-    private let userSessionKey = "horizon-userSession"
-    private let handleKey = "horizon-handle"
-    private let appPasswordKey = "horizon-appPassword"
-    
+    @State private var authManager = AuthManager()
+
     var body: some Scene {
         WindowGroup {
             VStack(alignment: .leading) {
@@ -33,50 +30,26 @@ struct HorizonApp: App {
                         .environment(agent)
                 case .notAuthenticated:
                     LoginView() { handle, password in
-                        await login(handle: handle, appPassword: password)
+                        do {
+                            sessionStatus = .loading
+                            let agent = try await authManager.login(handle: handle, appPassword: password)
+                            sessionStatus = .authenticated(agent)
+                        } catch {
+                            sessionStatus = .notAuthenticated
+                        }
                     }
                 case .loading:
-                    ProgressView()
+                    EmptyView()
                 }
-            }.task {
-                await loadSession()
+            }.task(id: scenePhase) {
+                guard scenePhase == .active else { return }
+                do {
+                    let agent = try await authManager.refresh()
+                    sessionStatus = .authenticated(agent)
+                } catch {
+                    sessionStatus = .notAuthenticated
+                }
             }
         }
-    }
-    
-    private func loadSession() async {
-        guard let sessionData = keychain.getData(userSessionKey),
-              let handle = keychain.get(handleKey),
-              let appPassword = keychain.get(appPasswordKey),
-              let userSession = try? JSONDecoder().decode(UserSession.self, from: sessionData) else {
-            self.sessionStatus = .notAuthenticated
-            return
-        }
-
-        let config = ATProtocolConfiguration(handle: handle, appPassword: appPassword)
-        config.session = userSession
-        self.sessionStatus = .authenticated(BlueskyAgent(config: config))
-//        self.sessionStatus = .notAuthenticated
-    }
-    
-    private func login(handle: String, appPassword: String) async {
-        let config = ATProtocolConfiguration(handle: handle, appPassword: appPassword)
-        do {
-            try await config.authenticate()
-            if let userSession = config.session, let sessionData = try? JSONEncoder().encode(userSession) {
-                keychain.set(sessionData, forKey: userSessionKey)
-                keychain.set(handle, forKey: handleKey)
-                keychain.set(appPassword, forKey: appPasswordKey)
-            }
-            self.sessionStatus = .authenticated(BlueskyAgent(config: config))
-        } catch {
-            self.sessionStatus = .notAuthenticated
-            print(error)
-        }
-    }
-    
-    private func logout() {
-        keychain.delete(userSessionKey)
-        self.sessionStatus = .notAuthenticated
     }
 }

@@ -19,7 +19,7 @@ struct ContentView: View {
     
     private var profileViewModel: ProfileView.ViewModel {
         // TODO @akshatksharma: fix this optional
-        ProfileView.ViewModel(actorDID: agent.userSession?.sessionDID ?? "",
+        ProfileView.ViewModel(actorDID: agent.atProtoClient.session?.sessionDID ?? "",
                               profileDetails: agent.userInfo?.toUserModel())
     }
     

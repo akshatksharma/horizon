@@ -25,7 +25,7 @@ extension ProfileView {
         func fetchProfileDefIfNeeded(atProtoClient: ATProtoKit) async {
             guard profileDetails == nil else { return }
             // TODO @akshatksharma: handle error
-            self.profileDetails = try? await atProtoClient.getProfile(actorDID).toUserModel()
+            self.profileDetails = try? await atProtoClient.getProfile(for: actorDID).toUserModel()
         }
     }
 }

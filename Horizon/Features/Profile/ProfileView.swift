@@ -25,6 +25,8 @@ struct ProfileView: View {
                                     .padding(.vertical, 32)
                             } else {
                                 ProgressView()
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .background(Color.clear)
                             }
                         }
                         .navigationBarTitleDisplayMode(.inline)

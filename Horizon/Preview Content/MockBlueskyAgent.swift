@@ -32,6 +32,7 @@ public class MockBlueskyAgent: BlueskyAgent {
                                                                   associated: nil,
                                                                   joinedViaStarterPack: nil,
                                                                   indexedAt: Date(),
+                                                                  createdAt: Date(),
                                                                   pinnedPost: nil)
     }
 }

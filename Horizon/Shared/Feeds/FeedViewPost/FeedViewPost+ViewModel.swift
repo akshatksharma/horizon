@@ -78,7 +78,7 @@ public extension AppBskyLexicon.Feed.FeedViewPostDefinition {
             guard let postRecord = record as? AppBskyLexicon.Feed.PostRecord else { return nil }
             return FeedViewPost.ViewModel(author: post.author.toUserModel(),
                                           createdAt: postRecord.createdAt,
-                                          postURI: post.postURI,
+                                          postURI: post.uri,
                                           text: postRecord.text,
                                           reply: reply,
                                           repostReason: reason,

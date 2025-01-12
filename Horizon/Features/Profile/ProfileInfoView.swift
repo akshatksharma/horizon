@@ -6,7 +6,6 @@
 //
 
 import ATProtoKit
-import Shimmer
 import SwiftUI
 
 struct ProfileInfoView: View {

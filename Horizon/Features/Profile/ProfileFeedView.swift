@@ -15,7 +15,7 @@ struct ProfileFeedView: View {
     var body: some View {
         FeedView(dataSource: FeedDataSource(fetchPostModels: {
             do {
-                guard let handle = agent.userSession?.handle else { return [] }
+                guard let handle = agent.atProtoClient.session?.handle else { return [] }
                 let myFeed = try await agent.atProtoClient.getAuthorFeed(by: handle, postFilter: filter)
                 return myFeed.feed
             } catch {
