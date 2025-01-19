@@ -12,6 +12,7 @@ struct ProfileView: View {
     @State var viewModel: ViewModel
     @Environment(BlueskyAgent.self) private var agent
     @State private var headerOpacity: CGFloat = 0.0
+    @State var position = ScrollPosition()
     
     var body: some View {
         NavigationStack {
@@ -21,7 +22,7 @@ struct ProfileView: View {
                         VStack(alignment: .leading) {
                             if let profileDetails = viewModel.profileDetails {
                                 ProfileInfoView(profileDetails: profileDetails)
-                                ProfileFeedsView(actorDID: viewModel.actorDID, tabs: viewModel.tabs)
+                                ProfileFeedsView(actorDID: viewModel.actorDID, tabs: viewModel.tabs, position: $position)
                                     .padding(.vertical, 32)
                             } else {
                                 ProgressView()
@@ -29,6 +30,7 @@ struct ProfileView: View {
                                     .background(Color.clear)
                             }
                         }
+                        .scrollTargetLayout()
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbarBackground(Color(UIColor.systemBackground), for: .navigationBar)
                         .toolbarBackground(.automatic, for: .navigationBar)
@@ -42,6 +44,7 @@ struct ProfileView: View {
                     }, action: { oldValue, newValue in
                         let headerHeight = reader.safeAreaInsets.top
                         headerOpacity = max(0, (newValue.y - (headerHeight) / 4) / headerHeight)
+                        position.scrollTo(y: newValue.y)
                     })
                     
                     // floating header view

@@ -11,6 +11,9 @@ import SwiftUI
 struct ProfileFeedsView: View {
     let actorDID: String
     let tabs: [AppBskyLexicon.Feed.GetAuthorFeed.Filter]
+    @Binding var position: ScrollPosition
+    
+    @Environment(BlueskyAgent.self) private var agent
     @State private var selectedTab: AppBskyLexicon.Feed.GetAuthorFeed.Filter = .postsWithNoReplies
     
     var body: some View {
@@ -53,8 +56,16 @@ struct ProfileFeedsView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 0) {
                 ForEach(tabs) { tab in
-                    ProfileFeedView(filter: tab)
-                        .containerRelativeFrame(.horizontal,
+                    FeedView(position: $position, dataSource: FeedDataSource(fetchPostModels: {
+                        do {
+                            guard let handle = agent.atProtoClient.session?.handle else { return [] }
+                            let myFeed = try await agent.atProtoClient.getAuthorFeed(by: handle, postFilter: tab)
+                            return myFeed.feed
+                        } catch {
+                            print(error)
+                            return []
+                        }
+                    })).containerRelativeFrame([.vertical, .horizontal],
                                                 count: 1,
                                                 spacing: 0)
                         .id(tab)

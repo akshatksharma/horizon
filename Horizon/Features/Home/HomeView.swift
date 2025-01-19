@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(BlueskyAgent.self) private var agent
+    
     var body: some View {
-        VStack {
-            Text("Home")
-        }
+        FeedView(dataSource: FeedDataSource(fetchPostModels: {
+            do {
+                let mainFeed = try await agent.atProtoClient.getTimeline()
+                return mainFeed.feed
+            } catch {
+                return []
+            }
+        }))
     }
 }
+    
