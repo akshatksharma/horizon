@@ -26,12 +26,21 @@ struct ContentView: View {
     var body: some View {
         VStack {
             TabView(selection: $selectedTab) {
-                Tab("Home", systemImage: "house", value: .home) {
+                NavigationStack {
                     HomeView()
                 }
-                Tab("Profile", systemImage: "person", value: .profile) {
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
+                .tag(Tabs.home)
+                
+                NavigationStack {
                     ProfileView(viewModel: profileViewModel)
                 }
+                .tabItem {
+                    Label("Profile", systemImage: "person")
+                }
+                .tag(Tabs.profile)
             }
         }
     }
