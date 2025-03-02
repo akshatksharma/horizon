@@ -54,16 +54,20 @@ public struct FeedViewPost: View {
                 HStack {
                     if let displayName = viewModel.author.displayName {
                         Text(displayName)
+                            .font(.callout)
                             .fontWeight(.semibold)
                             .lineLimit(1)
-                            .layoutPriority(-1)
+                            
                     }
                     Text("@\(viewModel.author.actorHandle)")
+                        .font(.callout)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
+                        .layoutPriority(-1)
                     
                 }
                 Text(viewModel.text)
+                    .font(.body)
                     .padding(.top, 4)
             }
             Spacer()

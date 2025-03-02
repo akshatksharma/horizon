@@ -15,43 +15,17 @@ struct HomeView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            FeedView(dataSource: FeedDataSource(fetchPostModels: {
+            FeedView(dataSource: FeedDataSource(fetchPostModels: { cursor in 
                 do {
-                    let mainFeed = try await agent.atProtoClient.getTimeline()
-                    return mainFeed.feed
+                    let mainFeed = try await agent.atProtoClient.getTimeline(cursor: cursor)
+                    return (mainFeed.feed, mainFeed.cursor)
                 } catch {
-                    return []
+                    return ([], nil)
                 }
             }))
-            .safeAreaInset(edge: .top, spacing: -topPadding) {
-                VStack {
-                    Spacer()
-                    ScrollView(.horizontal) {
-                        HStack {
-                            Text("Discover")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .padding(.leading, 16)
-//                            Text("Following")
-//                                .font(.largeTitle)
-//                                .fontWeight(.bold)
-//                                .foregroundStyle(Color(UIColor.systemGray5))
-//                                .padding(.leading, 2)
-//                            Text("Trending ")
-//                                .font(.largeTitle)
-//                                .fontWeight(.bold)
-//                                .foregroundStyle(Color(UIColor.systemGray5))
-//                                .padding(.leading, 2)
-                        }
-                    }
-                    .scrollIndicators(.hidden)
-                    .padding(.bottom, 4)
-                }
-                .background(Color(UIColor.systemBackground))
-                .opacity(lastScrollY <= 0 || isScrollingUp ? 1 : 0)
-                .frame(width: geometry.size.width, height: topPadding + geometry.safeAreaInsets.top)
-                .ignoresSafeArea(.container, edges: .top)
-            }
+//            .safeAreaInset(edge: .top, spacing: -topPadding) {
+//                headerView(width: geometry.size.width, height: topPadding + geometry.safeAreaInsets.top)
+//            }
             .onScrollGeometryChange(for: CGPoint.self, of: { scrollGeometry in
                 scrollGeometry.contentOffset
             }, action: { oldValue, newValue in
@@ -63,5 +37,28 @@ struct HomeView: View {
                 }
             })
         }
+    }
+    
+    // MARK: Subviews
+    
+    @ViewBuilder
+    private func headerView(width: CGFloat, height: CGFloat) -> some View {
+        VStack {
+            Spacer()
+            ScrollView(.horizontal) {
+                HStack {
+                    Text("Discover")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading, 16)
+                }
+            }
+            .scrollIndicators(.hidden)
+            .padding(.bottom, 4)
+        }
+        .background(Color(UIColor.systemBackground))
+        .opacity(lastScrollY <= 0 || isScrollingUp ? 1 : 0)
+        .frame(width: width, height: height)
+        .ignoresSafeArea(.container, edges: .top)
     }
 }

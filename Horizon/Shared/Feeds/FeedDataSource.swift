@@ -8,29 +8,43 @@
 import ATProtoKit
 import SwiftUI
 
+
+enum FetchReason {
+    case coldStart
+    case pagination
+    case refresh
+}
+
 @Observable
 class FeedDataSource {
-    
     private(set) var posts: [FeedViewPost.ViewModel] = []
-    
     var topLevelPosts: [FeedViewPost.ViewModel]  {
-        let filteredPosts = posts.filter { post in
-            post.reply == nil
-        }
-        return filteredPosts
+        posts.filter { post in post.reply == nil }
     }
     
-    private let fetchPostModels: () async throws -> [AppBskyLexicon.Feed.FeedViewPostDefinition]
+    private let fetchPostModels: (String?) async throws -> ([AppBskyLexicon.Feed.FeedViewPostDefinition], String?)
+    private var cursor: String?
     
-    init(fetchPostModels: @escaping () async throws -> [AppBskyLexicon.Feed.FeedViewPostDefinition]) {
+    init(fetchPostModels: @escaping (String?) async throws -> ([AppBskyLexicon.Feed.FeedViewPostDefinition], String?)) {
         self.fetchPostModels = fetchPostModels
     }
     
-    func fetchPosts() async throws {
-        let postsModels = try await fetchPostModels()
-        
-        self.posts = postsModels.compactMap {
-            $0.toFeedViewPostViewModel()
+    func fetchPosts(reason: FetchReason) async throws {
+        switch reason {
+        case .coldStart, .refresh:
+            let (postsModels, nextCursor) = try await fetchPostModels(nil)
+            self.cursor = nextCursor
+            self.posts = postsModels.compactMap {
+                $0.toFeedViewPostViewModel()
+            }
+        case .pagination:
+            let (postsModels, nextCursor) = try await fetchPostModels(cursor)
+            self.cursor = nextCursor
+            self.posts.append(contentsOf: postsModels.compactMap {
+                $0.toFeedViewPostViewModel()
+            })
         }
+
+
     }
 }

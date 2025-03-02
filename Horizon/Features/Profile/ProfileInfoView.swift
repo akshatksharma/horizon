@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProfileInfoView: View {
     let profileDetails: UserModel
-    let imageLength = 100.0
+let imageLength = 100.0
     
     var body: some View {
         VStack(alignment: .leading) {

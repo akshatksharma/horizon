@@ -8,12 +8,6 @@
 import SwiftUI
 
 struct FeedView: View {
-    /// An optional binding to track or control the scroll position of the `ScrollView`.
-    /// - If provided, it is used to bind the scroll position, allowing external components
-    ///   to control the scroll state. The user interaction on this view will be disabled in this case
-    /// - If `nil`, the view handles scrolling on it's own (i.e user interaction is enabled)
-    var position: Binding<ScrollPosition>? = nil
-
     /// Provides post information that the FeedView will render using FeedViewPosts
     @State var dataSource: FeedDataSource
     
@@ -24,14 +18,25 @@ struct FeedView: View {
                     FeedViewPost(viewModel: post)
                         .padding(.bottom, 12)
                 }
+                
+                // Add a spacer at the end that triggers pagination when visible
+                Color.clear
+                    .frame(height: 50)
+                    .onAppear {
+                        Task {
+                            do {
+                                try await dataSource.fetchPosts(reason: .pagination)
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }
             }
             .scrollTargetLayout()
         }
-        .allowsHitTesting(position == nil)
-        .scrollPosition(position ?? .constant(ScrollPosition()))
         .task {
             do {
-                try await dataSource.fetchPosts()
+                try await dataSource.fetchPosts(reason: .coldStart)
             } catch {
                 print(error)
             }
