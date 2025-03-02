@@ -11,7 +11,6 @@ import ATProtoKit
 struct ProfileView: View {
     @State var viewModel: ViewModel
     @Environment(BlueskyAgent.self) private var agent
-    @State private var headerOpacity: CGFloat = 0.0
     
     var body: some View {
         NavigationStack {
@@ -36,22 +35,6 @@ struct ProfileView: View {
                         .task {
                             await viewModel.fetchProfileDefIfNeeded(atProtoClient: agent.atProtoClient)
                         }
-                    }
-                    .onScrollGeometryChange(for: CGPoint.self,
-                                            of: { scrollGeometry in
-                        scrollGeometry.contentOffset
-                    }, action: { oldValue, newValue in
-                        let headerHeight = reader.safeAreaInsets.top
-                        headerOpacity = max(0, (newValue.y - (headerHeight) / 4) / headerHeight)
-                    })
-                    
-                    // floating header view
-                    if let profileDetails = viewModel.profileDetails {
-                        ProfileHeaderView(actorName: profileDetails.displayName ?? profileDetails.actorHandle)
-                            .frame(width: reader.size.width, height: reader.safeAreaInsets.top)
-                            .background(Color(UIColor.systemBackground))
-                            .ignoresSafeArea(.all, edges: .top)
-                            .opacity(headerOpacity)
                     }
                 }
             }
