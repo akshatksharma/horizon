@@ -12,7 +12,7 @@ struct HomeView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            FeedView(dataSource: FeedDataSource(fetchPostModels: { cursor in
+            FeedView(dataSource: FeedDataSource(fetchPostModels: { cursor in 
                 do {
                     let mainFeed = try await agent.atProtoClient.getTimeline(cursor: cursor)
                     return (mainFeed.feed, mainFeed.cursor)

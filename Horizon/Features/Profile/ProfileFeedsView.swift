@@ -91,6 +91,8 @@ extension AppBskyLexicon.Feed.GetAuthorFeed.Filter: @retroactive Identifiable {
             "Posts"
         case .postsWithReplies:
             "Replies"
+        case .postsWithVideo:
+            "Videos"
         }
     }
 }

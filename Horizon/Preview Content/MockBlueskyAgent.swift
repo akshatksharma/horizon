@@ -11,15 +11,19 @@ import SwiftUI
 @Observable
 public class MockBlueskyAgent: BlueskyAgent {
     init() {
-        let userSession = UserSession(handle: "notakshat.bsky.social",
-                                       sessionDID: "0",
-                                       isEmailAuthenticationFactorEnabled: false,
-                                       accessToken: "0",
-                                       refreshToken: "0",
-                                       isActive: false,
-                                       status: .none)
         let config = ATProtocolConfiguration(handle: "notakshat.bsky.social", appPassword: "0")
-        config.session = userSession
+        
+        if let url = URL(string: "https://notakshat.bsky.social") {
+            let userSession = UserSession(handle: "notakshat.bsky.social",
+                                           sessionDID: "0",
+                                           isEmailAuthenticationFactorEnabled: false,
+                                           accessToken: "0",
+                                           refreshToken: "0",
+                                           isActive: false,
+                                          status: nil,
+                                          serviceEndpoint: url)
+            config.session = userSession
+        }
         super.init(config: config)
     }
     
