@@ -16,7 +16,7 @@ struct ProfileFeedsView: View {
     @State private var selectedTab: AppBskyLexicon.Feed.GetAuthorFeed.Filter = .postsWithNoReplies
     
     var body: some View {
-        LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
+        LazyVStack(spacing: 0) {
             Section {
                 feedContainer
             } header: {

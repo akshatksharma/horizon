@@ -38,13 +38,14 @@ class FeedDataSource {
                 $0.toFeedViewPostViewModel()
             }
         case .pagination:
+            guard cursor != nil else { return }
+            
             let (postsModels, nextCursor) = try await fetchPostModels(cursor)
-            self.cursor = nextCursor
             self.posts.append(contentsOf: postsModels.compactMap {
                 $0.toFeedViewPostViewModel()
             })
+
+            self.cursor = nextCursor
         }
-
-
     }
 }
