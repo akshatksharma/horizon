@@ -26,21 +26,28 @@ struct ContentView: View {
     var body: some View {
         VStack {
             TabView(selection: $selectedTab) {
-                NavigationStack {
-                    HomeView()
+                Group {
+                    NavigationStack {
+                        HomeView()
+                            .navigationTitle("Home")
+                            .navigationBarTitleDisplayMode(.large)
+                    }
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
+                    .tag(Tabs.home)
+                    
+                    NavigationStack {
+                        ProfileView(viewModel: profileViewModel)
+                    }
+                    .tabItem {
+                        Label("Profile", systemImage: "person")
+                    }
+                    .tag(Tabs.profile)
                 }
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
-                .tag(Tabs.home)
-                
-                NavigationStack {
-                    ProfileView(viewModel: profileViewModel)
-                }
-                .tabItem {
-                    Label("Profile", systemImage: "person")
-                }
-                .tag(Tabs.profile)
+                .toolbarBackground(.ultraThickMaterial, for: .navigationBar)
+                .toolbarBackground(.visible, for: .tabBar)
+                .toolbarBackground(.ultraThickMaterial, for: .tabBar)
             }
         }
     }
