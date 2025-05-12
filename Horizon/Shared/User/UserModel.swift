@@ -8,7 +8,7 @@
 import ATProtoKit
 import Foundation
 
-public class UserModel {
+public class UserModel: Equatable, Hashable {
     
     /// The decentralized identifier (DID) of the user.
     public let actorDID: String
@@ -90,6 +90,18 @@ public class UserModel {
         self.postCount = postCount
         self.indexedAt = indexedAt
         self.pinnedPost = pinnedPost
+    }
+    
+    // MARK: - Equatable
+    
+    public static func == (lhs: UserModel, rhs: UserModel) -> Bool {
+        return lhs.actorDID == rhs.actorDID
+    }
+    
+    // MARK: - Hashable
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(actorDID)
     }
 }
 

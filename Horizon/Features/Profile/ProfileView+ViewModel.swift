@@ -19,7 +19,7 @@ extension ProfileView {
              profileDetails: UserModel? = nil) {
             self.actorDID = actorDID
             self.profileDetails = profileDetails
-            self.tabs = [.postsWithNoReplies, .postsWithReplies]
+            self.tabs = [.postsWithNoReplies]
         }
         
         func fetchProfileDefIfNeeded(atProtoClient: ATProtoKit) async {

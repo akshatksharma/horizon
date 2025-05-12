@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 public extension FeedViewPost {
-    class ViewModel: Identifiable {
+    class ViewModel: Identifiable, Hashable {
         
         public var id: String { postURI }
         
@@ -65,6 +65,37 @@ public extension FeedViewPost {
             self.likeCount = likeCount
             self.quoteCount = quoteCount
         }
+        
+        // MARK: - Equatable
+        
+        public static func == (lhs: ViewModel, rhs: ViewModel) -> Bool {
+            return lhs.postURI == rhs.postURI &&
+                   lhs.author == rhs.author &&
+                   lhs.createdAt == rhs.createdAt &&
+                   lhs.text == rhs.text &&
+                   lhs.reply == rhs.reply && // Assuming ReplyReferenceDefinition is Equatable
+                   lhs.repostReason == rhs.repostReason && // Assuming ReasonRepostUnion is Equatable
+                   lhs.replyCount == rhs.replyCount &&
+                   lhs.repostCount == rhs.repostCount &&
+                   lhs.likeCount == rhs.likeCount &&
+                   lhs.quoteCount == rhs.quoteCount
+        }
+
+        // MARK: - Hashable
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(postURI)
+            hasher.combine(author)
+            hasher.combine(createdAt)
+            hasher.combine(text)
+            hasher.combine(reply) // Assuming ReplyReferenceDefinition is Hashable
+            hasher.combine(repostReason) // Assuming ReasonRepostUnion is Hashable
+            hasher.combine(replyCount)
+            hasher.combine(repostCount)
+            hasher.combine(likeCount)
+            hasher.combine(quoteCount)
+        }
+        
     }
 }
 

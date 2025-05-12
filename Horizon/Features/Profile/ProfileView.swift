@@ -12,35 +12,35 @@ struct ProfileView: View {
     @State var viewModel: ViewModel
     @Environment(BlueskyAgent.self) private var agent
     
+    @State var safeAreaInsets: EdgeInsets = .init()
+    @State private var profileHeaderHeight: CGFloat = 0
+    @State private var scrollOffset: CGFloat = 0
+    
     var body: some View {
-        NavigationStack {
-            GeometryReader { reader in
+        VStack {
+            if let profileDetails = viewModel.profileDetails {
                 ZStack(alignment: .top) {
-                    ScrollView(.vertical) {
-                        VStack(alignment: .leading) {
-                            if let profileDetails = viewModel.profileDetails {
-                                ProfileInfoView(profileDetails: profileDetails)
-                                ProfileFeedsView(actorDID: viewModel.actorDID, tabs: viewModel.tabs)
-                                    .padding(.vertical, 32)
-                            } else {
-                                ProgressView()
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .background(Color.clear)
-                            }
+                    ProfileHeaderView(profileDetails: profileDetails, tabs: viewModel.tabs)
+                        .readHeight { height in
+                            profileHeaderHeight = height
                         }
-                        .scrollTargetLayout()
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbarBackground(Color(UIColor.systemBackground), for: .navigationBar)
-                        .toolbarBackground(.automatic, for: .navigationBar)
-                        .task {
-                            await viewModel.fetchProfileDefIfNeeded(atProtoClient: agent.atProtoClient)
-                        }
-                    }
+                        .offset(y: -(safeAreaInsets.top + scrollOffset))
+                    ProfileFeedsView(actorDID: viewModel.actorDID,
+                                     tabs: viewModel.tabs,
+                                     topSpacerHeight: profileHeaderHeight + 16,
+                                     scrollOffset: $scrollOffset)
                 }
+            } else {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.clear)
             }
-            .scrollIndicators(.hidden)
-            .safeAreaPadding(.top, 64)
         }
+        .getSafeAreaInsets($safeAreaInsets)
+        .task {
+            await viewModel.fetchProfileDefIfNeeded(atProtoClient: agent.atProtoClient)
+        }
+        .scrollIndicators(.hidden)
     }
 }
 

@@ -10,11 +10,17 @@ import SwiftUI
 struct FeedView: View {
     /// Provides post information that the FeedView will render using FeedViewPosts
     @State var dataSource: FeedDataSource
+    var scrollOffset: Binding<CGFloat>? = nil
+    var topSpacerHeight: CGFloat? = nil
     
     var body: some View {
         ScrollView {
             LazyVStack {
-                ForEach(dataSource.topLevelPosts) { post in
+                if let topSpacerHeight {
+                    Spacer()
+                        .frame(height: topSpacerHeight)
+                }
+                ForEach(dataSource.topLevelPosts, id: \.self) { post in
                     FeedViewPost(viewModel: post)
                         .padding(.bottom, 12)
                 }
@@ -34,6 +40,11 @@ struct FeedView: View {
             }
             .scrollTargetLayout()
         }
+        .onScrollGeometryChange(for: CGFloat.self) { geometry in
+      geometry.contentOffset.y
+        } action: { oldY, newY in
+            scrollOffset?.wrappedValue = newY
+        }
         .task {
             do {
                 try await dataSource.fetchPosts(reason: .coldStart)
@@ -41,5 +52,6 @@ struct FeedView: View {
                 print(error)
             }
         }
+        
     }
 }
