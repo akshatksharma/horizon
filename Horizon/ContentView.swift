@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ATProtoKit
+import SwiftUIIntrospect
 
 private enum Tabs: Equatable, Hashable {
     case home
@@ -45,9 +46,9 @@ struct ContentView: View {
                     }
                     .tag(Tabs.profile)
                 }
-                .toolbarBackground(.ultraThickMaterial, for: .navigationBar)
-                .toolbarBackground(.visible, for: .tabBar)
-                .toolbarBackground(.ultraThickMaterial, for: .tabBar)
+            }
+            .introspect(.tabView, on: .iOS(.v18)) { controller in
+                controller.tabBar.applyBlurBackground()
             }
         }
     }
