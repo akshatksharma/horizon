@@ -22,6 +22,7 @@ struct ProfileHeaderView: View {
                 .padding(.top, 36)
         }
         .padding(.horizontal)
+        .padding(.top, 18)
     }
     
     // MARK: Subviews
@@ -91,6 +92,8 @@ struct ProfileHeaderView: View {
                     Group {
                         Button(action: {}) {
                             Text(tab.displayTitle)
+                                .foregroundColor(.primary)
+                                .fontWeight(.bold)
                                 .padding(.bottom, 8)
                         }
                     }

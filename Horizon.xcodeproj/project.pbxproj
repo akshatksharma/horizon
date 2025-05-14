@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0248D8AB2CEB17120005E408 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0248D8AA2CEB17120005E408 /* KeychainSwift */; };
 		026E94472CEA61DF00C90DE0 /* ATProtoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 026E94462CEA61DF00C90DE0 /* ATProtoKit */; };
+		02A107792DD47692003A8B59 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 02A107782DD47692003A8B59 /* SwiftUIIntrospect */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02A107792DD47692003A8B59 /* SwiftUIIntrospect in Frameworks */,
 				0248D8AB2CEB17120005E408 /* KeychainSwift in Frameworks */,
 				026E94472CEA61DF00C90DE0 /* ATProtoKit in Frameworks */,
 			);
@@ -129,6 +131,7 @@
 			packageProductDependencies = (
 				026E94462CEA61DF00C90DE0 /* ATProtoKit */,
 				0248D8AA2CEB17120005E408 /* KeychainSwift */,
+				02A107782DD47692003A8B59 /* SwiftUIIntrospect */,
 			);
 			productName = horizon;
 			productReference = 026E94112CEA2BFA00C90DE0 /* Horizon.app */;
@@ -215,6 +218,7 @@
 			packageReferences = (
 				026E94412CEA3BC500C90DE0 /* XCRemoteSwiftPackageReference "ATProtoKit" */,
 				0248D8A92CEB17120005E408 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				02A107772DD4768C003A8B59 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 026E94122CEA2BFA00C90DE0 /* Products */;
@@ -595,6 +599,14 @@
 				minimumVersion = 0.19.2;
 			};
 		};
+		02A107772DD4768C003A8B59 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/swiftui-introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -607,6 +619,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 026E94412CEA3BC500C90DE0 /* XCRemoteSwiftPackageReference "ATProtoKit" */;
 			productName = ATProtoKit;
+		};
+		02A107782DD47692003A8B59 /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 02A107772DD4768C003A8B59 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = SwiftUIIntrospect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

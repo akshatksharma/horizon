@@ -27,7 +27,7 @@ struct ProfileView: View {
                         .offset(y: -(safeAreaInsets.top + scrollOffset))
                     ProfileFeedsView(actorDID: viewModel.actorDID,
                                      tabs: viewModel.tabs,
-                                     topSpacerHeight: profileHeaderHeight + 16,
+                                     topSpacerHeight: profileHeaderHeight + 6,
                                      scrollOffset: $scrollOffset)
                 }
             } else {
