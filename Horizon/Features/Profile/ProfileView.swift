@@ -21,8 +21,8 @@ struct ProfileView: View {
             if let profileDetails = viewModel.profileDetails {
                 ZStack(alignment: .top) {
                     ProfileHeaderView(profileDetails: profileDetails, tabs: viewModel.tabs)
-                        .readHeight { height in
-                            profileHeaderHeight = height
+                        .readFrame { frame in
+                            profileHeaderHeight = frame.size.height
                         }
                         .offset(y: -(safeAreaInsets.top + scrollOffset))
                     ProfileFeedsView(actorDID: viewModel.actorDID,
