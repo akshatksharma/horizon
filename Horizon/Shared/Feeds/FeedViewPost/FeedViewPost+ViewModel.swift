@@ -47,6 +47,8 @@ public extension FeedViewPost {
         /// The number of quote posts in the post. Optional.
         public let quoteCount: Int?
         
+        public let isEmbeddedPost: Bool
+
         public init(id: String,
                     author: UserModel,
                     createdAt: Date,
@@ -58,7 +60,8 @@ public extension FeedViewPost {
                     replyCount: Int?,
                     repostCount: Int?,
                     likeCount: Int?,
-                    quoteCount: Int?) {
+                    quoteCount: Int?,
+                    isEmbeddedPost: Bool = false) {
             self.id = id
             self.author = author
             self.createdAt = createdAt
@@ -71,6 +74,7 @@ public extension FeedViewPost {
             self.repostCount = repostCount
             self.likeCount = likeCount
             self.quoteCount = quoteCount
+            self.isEmbeddedPost = isEmbeddedPost
         }
         
         // MARK: - Equatable
@@ -85,7 +89,8 @@ public extension FeedViewPost {
                    lhs.replyCount == rhs.replyCount &&
                    lhs.repostCount == rhs.repostCount &&
                    lhs.likeCount == rhs.likeCount &&
-                   lhs.quoteCount == rhs.quoteCount
+                   lhs.quoteCount == rhs.quoteCount &&
+                   lhs.isEmbeddedPost == rhs.isEmbeddedPost
         }
 
         // MARK: - Hashable
@@ -101,6 +106,7 @@ public extension FeedViewPost {
             hasher.combine(repostCount)
             hasher.combine(likeCount)
             hasher.combine(quoteCount)
+            hasher.combine(isEmbeddedPost)
         }
         
     }
@@ -125,8 +131,46 @@ public extension AppBskyLexicon.Feed.FeedViewPostDefinition {
                                           replyCount: post.replyCount,
                                           repostCount: post.repostCount,
                                           likeCount: post.likeCount,
-                                          quoteCount: post.quoteCount)
+                                          quoteCount: post.quoteCount,
+                                          isEmbeddedPost: false)
         case .unknown(_):
+            return nil
+        }
+    }
+}
+
+// MARK: Quoted Post Conversion Helper
+
+public extension AppBskyLexicon.Embed.RecordDefinition.View {
+    func toFeedViewPostViewModel() -> FeedViewPost.ViewModel? {
+        switch record {
+        case .viewRecord(let viewRecord):
+            let text: String = {
+                switch viewRecord.value {
+                case .record(let record):
+                    guard let postRecord = record as? AppBskyLexicon.Feed.PostRecord else { return "" }
+                    return postRecord.text
+                case .unknown(_):
+                    return ""
+                }
+            }()
+            let embed = viewRecord.embeds?.first
+            return FeedViewPost.ViewModel(
+                id: viewRecord.cid,
+                author: viewRecord.author.toUserModel(),
+                createdAt: viewRecord.indexedAt,
+                postURI: viewRecord.uri,
+                text: text,
+                embed: embed,
+                reply: nil,
+                repostReason: nil,
+                replyCount: viewRecord.replyCount,
+                repostCount: viewRecord.repostCount,
+                likeCount: viewRecord.likeCount,
+                quoteCount: viewRecord.quoteCount,
+                isEmbeddedPost: true
+            )
+        default:
             return nil
         }
     }

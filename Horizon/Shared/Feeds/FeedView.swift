@@ -22,7 +22,8 @@ struct FeedView: View {
                 }
                 ForEach(dataSource.topLevelPosts, id: \.self) { post in
                     FeedViewPost(viewModel: post)
-                        .padding(.bottom, 12)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 20)
                 }
 
                 if dataSource.hasMorePosts {

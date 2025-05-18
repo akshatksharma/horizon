@@ -2,7 +2,7 @@ import SwiftUI
 
 struct FeedProfilePictureView: View {
     let avatarURL: URL?
-    private let imageLength = 42.0
+    let imageLength: CGFloat
     
     var body: some View {
         if let avatarURL = avatarURL {

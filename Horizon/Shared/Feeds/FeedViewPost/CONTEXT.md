@@ -48,11 +48,12 @@ The main coordinator view that handles different types of attachments:
 
 - Routes different embed types to their respective view components
 - Currently supports:
-  - Images (via PostImagesView)
-  - Videos (via PostVideoView)
-  - External links (WIP)
-  - Record embeds (WIP)
-  - Record with media (WIP)
+  - Images via PostImagesView.swift
+  - Videos via PostVideoView.swift
+  - External links
+  - Record embeds (quoted posts) via PostQuotedPostView.swift
+  - Record with media
+- It is backed by ATUnion.EmbedViewUnion
 
 #### PostImagesView.swift
 
