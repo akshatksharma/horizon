@@ -12,7 +12,7 @@ import SwiftUI
 public extension FeedViewPost {
     class ViewModel: Identifiable, Hashable {
         
-        public var id: String { postURI }
+        public let id: String
         
         /// The author of the post. This will give the basic details of the post author.
         public let author: UserModel
@@ -47,7 +47,8 @@ public extension FeedViewPost {
         /// The number of quote posts in the post. Optional.
         public let quoteCount: Int?
         
-        public init(author: UserModel,
+        public init(id: String,
+                    author: UserModel,
                     createdAt: Date,
                     postURI: String,
                     text: String,
@@ -58,6 +59,7 @@ public extension FeedViewPost {
                     repostCount: Int?,
                     likeCount: Int?,
                     quoteCount: Int?) {
+            self.id = id
             self.author = author
             self.createdAt = createdAt
             self.postURI = postURI
@@ -112,7 +114,8 @@ public extension AppBskyLexicon.Feed.FeedViewPostDefinition {
         switch post.record {
         case .record(let record):
             guard let postRecord = record as? AppBskyLexicon.Feed.PostRecord else { return nil }
-            return FeedViewPost.ViewModel(author: post.author.toUserModel(),
+            return FeedViewPost.ViewModel(id: post.cid,
+                                          author: post.author.toUserModel(),
                                           createdAt: postRecord.createdAt,
                                           postURI: post.uri,
                                           text: postRecord.text,

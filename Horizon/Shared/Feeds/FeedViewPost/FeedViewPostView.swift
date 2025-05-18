@@ -35,7 +35,8 @@ public struct FeedViewPost: View {
 }
 
 #Preview {
-    FeedViewPost(viewModel: FeedViewPost.ViewModel(author: UserModel.mock(),
+    FeedViewPost(viewModel: FeedViewPost.ViewModel(id: UUID().uuidString,
+                                                   author: UserModel.mock(),
                                                    createdAt: Date(),
                                                    postURI: "",
                                                    text: "i have serious doubts about the existence of god because every time I see him or hear his voice he sounds like someone's uncle",

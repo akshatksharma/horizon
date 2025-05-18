@@ -37,17 +37,19 @@ struct FeedView: View {
             }
             .scrollTargetLayout()
         }
+        .refreshable {
+            await Task {
+                try? await dataSource.fetchPosts(reason: .refresh)
+            }.value
+        }
         .onScrollGeometryChange(for: CGFloat.self) { geometry in
       geometry.contentOffset.y
         } action: { oldY, newY in
             scrollOffset?.wrappedValue = newY
         }
         .task {
-            do {
-                try await dataSource.fetchPosts(reason: .coldStart)
-            } catch {
-                print(error)
-            }
+            guard dataSource.posts.isEmpty else { return }
+            try? await dataSource.fetchPosts(reason: .coldStart)
         }
         
     }
