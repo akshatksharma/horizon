@@ -24,19 +24,16 @@ struct FeedView: View {
                     FeedViewPost(viewModel: post)
                         .padding(.bottom, 12)
                 }
-                
-                // Add a spacer at the end that triggers pagination when visible
-                Color.clear
-                    .frame(height: 50)
-                    .onAppear {
-                        Task {
-                            do {
+
+                if dataSource.hasMorePosts {
+                    ProgressView()
+                        .frame(height: 50)
+                        .onAppear {
+                            Task {
                                 try await dataSource.fetchPosts(reason: .pagination)
-                            } catch {
-                                print(error)
                             }
                         }
-                    }
+                }
             }
             .scrollTargetLayout()
         }

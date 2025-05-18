@@ -18,12 +18,21 @@ enum FetchReason {
 @Observable
 class FeedDataSource {
     private(set) var posts: [FeedViewPost.ViewModel] = []
+    
     var topLevelPosts: [FeedViewPost.ViewModel]  {
         posts.filter { post in post.reply == nil }
     }
     
+    var hasMorePosts: Bool {
+        if !hasFetched {
+            return true
+        }
+        return cursor != nil
+    }
+    
     private let fetchPostModels: (String?) async throws -> ([AppBskyLexicon.Feed.FeedViewPostDefinition], String?)
     private var cursor: String?
+    private var hasFetched: Bool = false
     
     init(fetchPostModels: @escaping (String?) async throws -> ([AppBskyLexicon.Feed.FeedViewPostDefinition], String?)) {
         self.fetchPostModels = fetchPostModels
@@ -34,6 +43,7 @@ class FeedDataSource {
         case .coldStart, .refresh:
             let (postsModels, nextCursor) = try await fetchPostModels(nil)
             self.cursor = nextCursor
+            self.hasFetched = true
             self.posts = postsModels.compactMap {
                 $0.toFeedViewPostViewModel()
             }

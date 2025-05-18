@@ -13,7 +13,7 @@ struct HomeView: View {
     var body: some View {
         let dataSource = FeedDataSource(fetchPostModels: { cursor in
             do {
-                let mainFeed = try await agent.atProtoClient.getTimeline(cursor: cursor)
+                let mainFeed = try await agent.atProtoClient.getTimeline(limit: 10, cursor: cursor)
                 return (mainFeed.feed, mainFeed.cursor)
             } catch {
                 return ([], nil)
