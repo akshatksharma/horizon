@@ -9,7 +9,9 @@ struct FeedAttachmentView: View {
             switch embed {
             case .embedImagesView(let view):
                 PostImagesView(images: view.images)
-            case .embedExternalView, .embedRecordView, .embedRecordWithMediaView, .embedVideoView:
+            case .embedVideoView(let view):
+                PostVideoView(video: view)
+            case .embedExternalView, .embedRecordView, .embedRecordWithMediaView:
                 EmptyView()
             }
         }
