@@ -10,16 +10,24 @@ import SwiftUI
 
 public struct FeedViewPost: View {
     let viewModel: ViewModel
+    @State private var headerOffset: CGFloat = 0
     
     public var body: some View {
-        HStack(alignment: .top) {
-            FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL)
-            VStack(alignment: .leading, spacing: 4) {
-                FeedHeaderView(author: viewModel.author, repostReason: viewModel.repostReason)
-                FeedTextView(text: viewModel.text)
-                FeedAttachmentView(embed: viewModel.embed)
+        VStack(alignment: .leading, spacing: 4) {
+            FeedHeaderView(repostReason: viewModel.repostReason)
+                .offset(CGSize(width: headerOffset, height: 0))
+            HStack(alignment: .top) {
+                FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL)
+                    .readFrame { frame in
+                        headerOffset = frame.maxX
+                    }
+                VStack(alignment: .leading, spacing: 4) {
+                    FeedAuthorContextView(author: viewModel.author)
+                    FeedTextView(text: viewModel.text)
+                    FeedAttachmentView(embed: viewModel.embed)
+                }
+                Spacer()
             }
-            Spacer()
         }
         .padding(.horizontal, 16)
         .padding(.bottom, 8)
