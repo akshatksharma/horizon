@@ -26,6 +26,9 @@ public extension FeedViewPost {
         /// The text contained in the post.
         public let text: String
         
+        /// The attachment on the post. Optional.
+        public let embed: ATUnion.EmbedViewUnion?
+        
         /// The references to posts when replying. Optional.
         public var reply: AppBskyLexicon.Feed.ReplyReferenceDefinition?
         
@@ -48,6 +51,7 @@ public extension FeedViewPost {
                     createdAt: Date,
                     postURI: String,
                     text: String,
+                    embed: ATUnion.EmbedViewUnion?,
                     reply: AppBskyLexicon.Feed.ReplyReferenceDefinition?,
                     repostReason: ATUnion.ReasonRepostUnion?,
                     replyCount: Int?,
@@ -58,6 +62,7 @@ public extension FeedViewPost {
             self.createdAt = createdAt
             self.postURI = postURI
             self.text = text
+            self.embed = embed
             self.reply = reply
             self.repostReason = repostReason
             self.replyCount = replyCount
@@ -111,6 +116,7 @@ public extension AppBskyLexicon.Feed.FeedViewPostDefinition {
                                           createdAt: postRecord.createdAt,
                                           postURI: post.uri,
                                           text: postRecord.text,
+                                          embed: post.embed,
                                           reply: reply,
                                           repostReason: reason,
                                           replyCount: post.replyCount,
