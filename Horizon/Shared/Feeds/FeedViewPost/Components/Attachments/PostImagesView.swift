@@ -28,9 +28,11 @@ struct SingleImageView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxHeight: maxHeight)
+                    .cornerRadius(12)
             case .failure:
                 Image(systemName: "photo")
                     .foregroundColor(.gray)
+                    .cornerRadius(12)
             @unknown default:
                 EmptyView()
             }
@@ -58,9 +60,11 @@ struct ImageGridView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(height: maxHeight / 2)
                             .clipped()
+                            .cornerRadius(12)
                     case .failure:
                         Image(systemName: "photo")
                             .foregroundColor(.gray)
+                            .cornerRadius(12)
                     @unknown default:
                         EmptyView()
                     }

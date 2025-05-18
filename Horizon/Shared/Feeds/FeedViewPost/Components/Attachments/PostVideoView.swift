@@ -14,11 +14,13 @@ struct PostVideoView: View {
                         Rectangle()
                             .fill(Color.gray.opacity(0.2))
                             .frame(maxWidth: getMaxWidth(using: video.aspectRatio), minHeight: Constants.maxImageHeight)
+                            .cornerRadius(12)
                     case .success(let image):
                         image
                             .resizable()
                             .aspectRatio(CGSize(width: video.aspectRatio?.width ?? 16, height: video.aspectRatio?.height ?? 9), contentMode: .fit)
                             .frame(maxWidth: getMaxWidth(using: video.aspectRatio), minHeight: Constants.maxImageHeight)
+                            .cornerRadius(12)
                             .overlay(
                                 Image(systemName: "play.fill")
                                     .font(.system(size: Constants.playButtonSize))
@@ -29,6 +31,7 @@ struct PostVideoView: View {
                         Rectangle()
                             .fill(Color.gray.opacity(0.2))
                             .frame(maxWidth: getMaxWidth(using: video.aspectRatio), minHeight: Constants.maxImageHeight)
+                            .cornerRadius(12)
                     @unknown default:
                         EmptyView()
                     }
@@ -37,6 +40,7 @@ struct PostVideoView: View {
                 Rectangle()
                     .fill(Color.gray.opacity(0.2))
                     .frame(maxWidth: getMaxWidth(using: video.aspectRatio), minHeight: Constants.maxImageHeight)
+                    .cornerRadius(12)
             }
         }
     }
