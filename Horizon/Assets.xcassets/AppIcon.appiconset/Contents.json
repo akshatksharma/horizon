@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "final_temp_mid_light.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -12,6 +13,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "final_temp_mid_dark.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
