@@ -79,7 +79,6 @@ struct ProfileHeaderView: View {
         if let description = profileDetails.description {
             Text(description)
                 .font(.subheadline)
-                .lineLimit(2)
                 .padding(.top, 8)
         }
     }

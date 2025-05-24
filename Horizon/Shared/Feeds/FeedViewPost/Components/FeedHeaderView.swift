@@ -16,8 +16,8 @@ struct FeedHeaderView: View {
                         Text("Reposted by \(displayName)")
                             .foregroundStyle(.secondary)
                             .font(.footnote)
+                            .lineLimit(1)
                     }
-                    .padding(.bottom, 2)
                 }
             case .reasonPin:
                 EmptyView()

@@ -5,6 +5,7 @@ struct FeedTextView: View {
     
     var body: some View {
         Text(text)
-            .font(.body)
+            .font(.system(size: 15))
+            .lineSpacing(2)
     }
 } 
