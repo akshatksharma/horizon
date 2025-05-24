@@ -21,9 +21,14 @@ struct FeedView: View {
                         .frame(height: topSpacerHeight)
                 }
                 ForEach(dataSource.topLevelPosts, id: \.self) { post in
-                    FeedViewPost(viewModel: post)
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 20)
+                    VStack(spacing: 0) {
+                        FeedViewPost(viewModel: post)
+                            .padding(.horizontal, 16)
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(height: 0.5)
+                            .padding(.top, 16)
+                    }
                 }
 
                 if dataSource.hasMorePosts {
