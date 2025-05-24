@@ -1,8 +1,11 @@
 import SwiftUI
 import ATProtoKit
+import UIKit
 
 struct PostExternalAttachmentView: View {
     let external: AppBskyLexicon.Embed.ExternalDefinition.View
+    
+    @State private var showingSafari = false
     
     private struct Constants {
         static let thumbnailHeight: CGFloat = 120
@@ -39,6 +42,27 @@ struct PostExternalAttachmentView: View {
                 .stroke(Color.gray.opacity(0.15), lineWidth: 1)
         )
         .fixedSize(horizontal: false, vertical: true)
+        .onTapGesture {
+            openURL()
+        }
+        .sheet(isPresented: $showingSafari) {
+            if let url = URL(string: external.external.uri) {
+                SafariView(url: url)
+            }
+        }
+    }
+    
+    private func openURL() {
+        guard let url = URL(string: external.external.uri), 
+              UIApplication.shared.canOpenURL(url) else {
+            showingSafari = true
+            return
+        }
+
+        UIApplication.shared.open(url, options: [.universalLinksOnly: true]) { success in
+            guard !success else { return }
+            showingSafari = true
+        }
     }
     
     @ViewBuilder
