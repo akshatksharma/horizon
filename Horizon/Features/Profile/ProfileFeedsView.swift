@@ -24,8 +24,7 @@ struct ProfileFeedsView: View {
                     ForEach(tabs, id: \.self) { tab in
                         let dataSource = FeedDataSource(fetchPostModels: { cursor in
                             do {
-                                guard let handle = agent.atProtoClient.session?.handle else { return ([], nil) }
-                                let myFeed = try await agent.atProtoClient.getAuthorFeed(by: handle, cursor: cursor, postFilter: tab)
+                                let myFeed = try await agent.atProtoClient.getAuthorFeed(by: actorDID, cursor: cursor, postFilter: tab)
                                 return (myFeed.feed, myFeed.cursor)
                             } catch {
                                 print(error)

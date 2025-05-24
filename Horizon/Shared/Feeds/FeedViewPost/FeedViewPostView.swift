@@ -12,6 +12,8 @@ public struct FeedViewPost: View {
     let viewModel: ViewModel
     @State private var headerOffset: CGFloat = 0
     @State private var authorContextHeight: CGFloat = 0
+    @Environment(Router.self) private var router
+    @Environment(\.currentTab) private var currentTab
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -23,6 +25,9 @@ public struct FeedViewPost: View {
                             authorContextHeight = frame.height
                         }
                 }
+                .onTapGesture {
+                    router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab)
+                }
                 FeedTextView(text: viewModel.text)
                 FeedAttachmentView(embed: viewModel.embed)
             } else {
@@ -33,8 +38,14 @@ public struct FeedViewPost: View {
                         .readFrame { frame in
                             headerOffset = frame.maxX
                         }
+                        .onTapGesture {
+                            router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab)
+                        }
                     VStack(alignment: .leading, spacing: 4) {
                         FeedAuthorContextView(author: viewModel.author)
+                            .onTapGesture {
+                                router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab)
+                            }
                         FeedTextView(text: viewModel.text)
                         FeedAttachmentView(embed: viewModel.embed)
                     }
