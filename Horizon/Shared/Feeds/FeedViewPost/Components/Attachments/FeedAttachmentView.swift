@@ -13,7 +13,9 @@ struct FeedAttachmentView: View {
                 PostVideoView(video: view)
             case .embedRecordView(let view):
                 PostQuotedPostView(view: view)
-            case .embedExternalView, .embedRecordWithMediaView:
+            case .embedExternalView(let view):
+                PostExternalAttachmentView(external: view)
+            case .embedRecordWithMediaView:
                 EmptyView()
             }
         }
