@@ -16,7 +16,6 @@ struct PostQuotedPostView: View {
         } else {
             Text("Quoted post unavailable")
                 .foregroundColor(.secondary)
-                .padding()
         }
     }
 } 

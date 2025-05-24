@@ -15,7 +15,7 @@ struct FeedView: View {
     
     var body: some View {
         ScrollView {
-            LazyVStack {
+            LazyVStack(spacing: 0) {
                 if let topSpacerHeight {
                     Spacer()
                         .frame(height: topSpacerHeight)
@@ -27,7 +27,8 @@ struct FeedView: View {
                         Rectangle()
                             .fill(Color.gray.opacity(0.2))
                             .frame(height: 0.5)
-                            .padding(.top, 16)
+                            .padding(.top, 12)
+                            .padding(.bottom, 12)
                     }
                 }
 

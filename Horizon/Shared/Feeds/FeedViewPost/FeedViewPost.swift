@@ -16,7 +16,7 @@ public struct FeedViewPost: View {
     @Environment(\.currentTab) private var currentTab
     
     public var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 0) {
             if viewModel.isEmbeddedPost {
                 HStack(alignment: .center, spacing: 8) {
                     FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: authorContextHeight)
@@ -33,10 +33,12 @@ public struct FeedViewPost: View {
                     FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: 42)
                         .readFrame { frame in headerOffset = frame.maxX }
                         .onTapGesture { router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab) }
-                    VStack(alignment: .leading, spacing: 4) {
-                        FeedAuthorContextView(author: viewModel.author)
-                            .onTapGesture { router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab) }
-                        FeedTextView(text: viewModel.text)
+                    VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            FeedAuthorContextView(author: viewModel.author)
+                                .onTapGesture { router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab) }
+                            FeedTextView(text: viewModel.text)
+                        }
                         FeedAttachmentView(embed: viewModel.embed)
                     }
                     Spacer()
