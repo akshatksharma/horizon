@@ -20,6 +20,7 @@ struct HorizonApp: App {
     @Environment(\.scenePhase) var scenePhase
     @State private var sessionStatus: SessionStatus = .loading
     @State private var authManager = AuthManager()
+    @State private var router = Router()
 
     var body: some Scene {
         WindowGroup {
@@ -28,6 +29,7 @@ struct HorizonApp: App {
                 case .authenticated(let agent):
                     ContentView()
                         .environment(agent)
+                        .environment(router)
                 case .notAuthenticated:
                     LoginView() { handle, password in
                         do {

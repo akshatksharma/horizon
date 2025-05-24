@@ -9,13 +9,9 @@ import SwiftUI
 import ATProtoKit
 import SwiftUIIntrospect
 
-private enum Tabs: Equatable, Hashable {
-    case home
-    case profile
-}
-
 struct ContentView: View {
     @Environment(BlueskyAgent.self) private var agent
+    @Environment(Router.self) private var router
     @State private var selectedTab: Tabs = .home
     
     private var profileViewModel: ProfileView.ViewModel {
@@ -28,18 +24,24 @@ struct ContentView: View {
         VStack {
             TabView(selection: $selectedTab) {
                 Group {
-                    NavigationStack {
+                    NavigationStack(path: router.path(for: .home)) {
                         HomeView()
                             .navigationTitle("Home")
                             .navigationBarTitleDisplayMode(.large)
+                            .navigationDestination(for: Routes.self) { route in
+                                router.destination(for: route)
+                            }
                     }
                     .tabItem {
                         Label("Home", systemImage: "house")
                     }
                     .tag(Tabs.home)
                     
-                    NavigationStack {
+                    NavigationStack(path: router.path(for: .profile)) {
                         ProfileView(viewModel: profileViewModel)
+                            .navigationDestination(for: Routes.self) { route in
+                                router.destination(for: route)
+                            }
                     }
                     .tabItem {
                         Label("Profile", systemImage: "person")
@@ -57,4 +59,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environment(MockBlueskyAgent() as BlueskyAgent)
+        .environment(Router())
 }
