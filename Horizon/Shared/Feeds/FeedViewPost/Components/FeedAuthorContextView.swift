@@ -4,6 +4,9 @@ import ATProtoKit
 struct FeedAuthorContextView: View {
     let author: UserModel
     
+    @Environment(Router.self) private var router
+    @Environment(\.currentTab) private var currentTab
+    
     var body: some View {
         HStack {
             if let displayName = author.displayName {
@@ -17,6 +20,9 @@ struct FeedAuthorContextView: View {
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .layoutPriority(-1)
+        }
+        .onTapGesture {
+            router.navigate(to: Routes.profile(authorID: author.actorDID), in: currentTab)
         }
     }
 } 

@@ -19,24 +19,21 @@ public struct FeedViewPost: View {
         VStack(alignment: .leading, spacing: 0) {
             if viewModel.isEmbeddedPost {
                 HStack(alignment: .center, spacing: 8) {
-                    FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: authorContextHeight)
+                    FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: authorContextHeight, authorDID: viewModel.author.actorDID)
                     FeedAuthorContextView(author: viewModel.author)
                         .readFrame { frame in authorContextHeight = frame.height }
                 }
-                    .onTapGesture { router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab) }
                 FeedTextView(text: viewModel.text)
                 FeedAttachmentView(embed: viewModel.embed)
             } else {
                 FeedHeaderView(repostReason: viewModel.repostReason)
                      .offset(CGSize(width: headerOffset, height: 0))
                 HStack(alignment: .top) {
-                    FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: 42)
+                    FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: 42, authorDID: viewModel.author.actorDID)
                         .readFrame { frame in headerOffset = frame.maxX }
-                        .onTapGesture { router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab) }
                     VStack(alignment: .leading, spacing: 8) {
                         VStack(alignment: .leading, spacing: 0) {
                             FeedAuthorContextView(author: viewModel.author)
-                                .onTapGesture { router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab) }
                             FeedTextView(text: viewModel.text)
                         }
                         FeedAttachmentView(embed: viewModel.embed)
