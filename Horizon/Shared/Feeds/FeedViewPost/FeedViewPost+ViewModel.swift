@@ -48,6 +48,31 @@ public extension FeedViewPost {
         public let quoteCount: Int?
         
         public let isEmbeddedPost: Bool
+        
+        /// Returns a relative timestamp string based on the createdAt date
+        /// - Within a minute: "Now"
+        /// - Minutes ago: "1m", "5m", etc.
+        /// - Hours ago: "1h", "5h", etc.
+        /// - More than a day ago: MM/DD/YY format
+        public var relativeTimestamp: String {
+            let now = Date()
+            let timeInterval = now.timeIntervalSince(createdAt)
+            
+            if timeInterval < 60 {
+                return "Now"
+            } else if timeInterval < 3600 { // Less than 1 hour
+                let minutes = Int(timeInterval / 60)
+                return "\(minutes)m"
+            } else if timeInterval < 86400 { // Less than 1 day
+                let hours = Int(timeInterval / 3600)
+                return "\(hours)h"
+            } else {
+                // More than a day ago - format as MM/DD/YY
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MM/dd/yy"
+                return formatter.string(from: createdAt)
+            }
+        }
 
         public init(id: String,
                     author: UserModel,

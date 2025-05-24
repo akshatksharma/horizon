@@ -20,8 +20,14 @@ public struct FeedViewPost: View {
             if viewModel.isEmbeddedPost {
                 HStack(alignment: .center, spacing: 8) {
                     FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: authorContextHeight, authorDID: viewModel.author.actorDID)
-                    FeedAuthorContextView(author: viewModel.author)
-                        .readFrame { frame in authorContextHeight = frame.height }
+                    HStack(spacing: 4) {
+                        FeedAuthorContextView(author: viewModel.author)
+                            .layoutPriority(-1)
+                        Spacer()
+                        PostTimestampView(timestamp: viewModel.relativeTimestamp)
+                            .layoutPriority(1)
+                    }
+                    .readFrame { frame in authorContextHeight = frame.height }
                 }
                 FeedTextView(text: viewModel.text)
                 FeedAttachmentView(embed: viewModel.embed)
@@ -33,7 +39,13 @@ public struct FeedViewPost: View {
                         .readFrame { frame in headerOffset = frame.maxX }
                     VStack(alignment: .leading, spacing: 8) {
                         VStack(alignment: .leading, spacing: 0) {
-                            FeedAuthorContextView(author: viewModel.author)
+                            HStack(spacing: 4) {
+                                FeedAuthorContextView(author: viewModel.author)
+                                    .layoutPriority(-1)
+                                Spacer()
+                                PostTimestampView(timestamp: viewModel.relativeTimestamp)
+                                    .layoutPriority(1)
+                            }
                             FeedTextView(text: viewModel.text)
                         }
                         FeedAttachmentView(embed: viewModel.embed)

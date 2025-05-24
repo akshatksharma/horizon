@@ -14,6 +14,7 @@ struct FeedAuthorContextView: View {
                     .font(.callout)
                     .fontWeight(.semibold)
                     .lineLimit(1)
+                    .layoutPriority(1)
             }
             Text("@\(author.actorHandle)")
                 .font(.callout)
