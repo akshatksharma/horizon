@@ -21,13 +21,9 @@ public struct FeedViewPost: View {
                 HStack(alignment: .center, spacing: 8) {
                     FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: authorContextHeight)
                     FeedAuthorContextView(author: viewModel.author)
-                        .readFrame { frame in
-                            authorContextHeight = frame.height
-                        }
+                        .readFrame { frame in authorContextHeight = frame.height }
                 }
-                .onTapGesture {
-                    router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab)
-                }
+                    .onTapGesture { router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab) }
                 FeedTextView(text: viewModel.text)
                 FeedAttachmentView(embed: viewModel.embed)
             } else {
@@ -35,17 +31,11 @@ public struct FeedViewPost: View {
                      .offset(CGSize(width: headerOffset, height: 0))
                 HStack(alignment: .top) {
                     FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: 42)
-                        .readFrame { frame in
-                            headerOffset = frame.maxX
-                        }
-                        .onTapGesture {
-                            router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab)
-                        }
+                        .readFrame { frame in headerOffset = frame.maxX }
+                        .onTapGesture { router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab) }
                     VStack(alignment: .leading, spacing: 4) {
                         FeedAuthorContextView(author: viewModel.author)
-                            .onTapGesture {
-                                router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab)
-                            }
+                            .onTapGesture { router.navigate(to: Routes.profile(authorID: viewModel.author.actorDID), in: currentTab) }
                         FeedTextView(text: viewModel.text)
                         FeedAttachmentView(embed: viewModel.embed)
                     }
