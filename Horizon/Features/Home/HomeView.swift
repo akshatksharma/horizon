@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(BlueskyAgent.self) private var agent
+    @Environment(\.currentTab) private var currentTab
     
     var body: some View {
         let dataSource = FeedDataSource(fetchPostModels: { cursor in

@@ -49,6 +49,7 @@ struct ContentView: View {
                     .tag(Tabs.profile)
                 }
             }
+            .environment(\.currentTab, selectedTab)
             .introspect(.tabView, on: .iOS(.v18)) { controller in
                 controller.tabBar.applyBlurBackground()
             }
