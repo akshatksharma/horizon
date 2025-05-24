@@ -50,9 +50,6 @@ struct ContentView: View {
                 }
             }
             .environment(\.currentTab, selectedTab)
-            .introspect(.tabView, on: .iOS(.v18)) { controller in
-                controller.tabBar.applyBlurBackground()
-            }
         }
     }
 }
