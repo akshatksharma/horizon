@@ -5,6 +5,12 @@ import AVKit
 struct PostVideoView: View {
     let video: AppBskyLexicon.Embed.VideoDefinition.View
     
+    private struct Constants {
+        static let maxHeight = 200.0
+        static let maxWidth = 400.0
+        static let playButtonSize = 32.0
+    }
+    
     var body: some View {
         ZStack {
             if let thumbnailURL = video.thumbnailImageURL {
@@ -13,13 +19,13 @@ struct PostVideoView: View {
                     case .empty:
                         Rectangle()
                             .fill(Color.gray.opacity(0.2))
-                            .frame(maxWidth: getMaxWidth(using: video.aspectRatio), minHeight: Constants.maxImageHeight)
+                            .frame(height: calculatedHeight)
                             .cornerRadius(12)
                     case .success(let image):
                         image
                             .resizable()
-                            .aspectRatio(CGSize(width: video.aspectRatio?.width ?? 16, height: video.aspectRatio?.height ?? 9), contentMode: .fit)
-                            .frame(maxWidth: getMaxWidth(using: video.aspectRatio), minHeight: Constants.maxImageHeight)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxHeight: Constants.maxHeight)
                             .cornerRadius(12)
                             .overlay(
                                 Image(systemName: "play.fill")
@@ -30,7 +36,7 @@ struct PostVideoView: View {
                     case .failure:
                         Rectangle()
                             .fill(Color.gray.opacity(0.2))
-                            .frame(maxWidth: getMaxWidth(using: video.aspectRatio), minHeight: Constants.maxImageHeight)
+                            .frame(height: calculatedHeight)
                             .cornerRadius(12)
                     @unknown default:
                         EmptyView()
@@ -39,22 +45,23 @@ struct PostVideoView: View {
             } else {
                 Rectangle()
                     .fill(Color.gray.opacity(0.2))
-                    .frame(maxWidth: getMaxWidth(using: video.aspectRatio), minHeight: Constants.maxImageHeight)
+                    .frame(height: calculatedHeight)
                     .cornerRadius(12)
             }
         }
     }
 
-    private struct Constants {
-        static let maxImageHeight = 200.0
-        static let playButtonSize = 32.0
-        static let defaultAspectRatio = 16.0 / 9.0
-    }
-
-    private func getMaxWidth(using aspectRatio: AppBskyLexicon.Embed.AspectRatioDefinition?) -> CGFloat {
-        guard let aspectRatio = aspectRatio else {
-            return Constants.maxImageHeight * Constants.defaultAspectRatio
+    // Calculate height based on aspect ratio, with fallback to maxHeight
+    private var calculatedHeight: CGFloat {
+        guard let aspectRatio = video.aspectRatio else {
+            return Constants.maxHeight
         }
-        return Constants.maxImageHeight * CGFloat(aspectRatio.width) / CGFloat(aspectRatio.height)
+        
+        let ratio = CGFloat(aspectRatio.height) / CGFloat(aspectRatio.width)
+        let calculatedHeight = Constants.maxWidth * ratio
+        
+        // Ensure we don't exceed maxHeight
+        return min(calculatedHeight, Constants.maxHeight)
     }
+    
 }

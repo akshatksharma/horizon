@@ -3,36 +3,60 @@ import ATProtoKit
 
 struct PostImagesView: View {
     let images: [AppBskyLexicon.Embed.ImagesDefinition.ViewImage]
-    let maxHeight: CGFloat = 200
+    
+    struct Constants {
+        static let maxHeight: CGFloat = 200
+        static let maxWidth: CGFloat = 400
+    }
         
     var body: some View {
         if images.count == 1 {
-            SingleImageView(image: images[0], maxHeight: maxHeight)
+            SingleImageView(image: images[0])
         } else {
-            ImageGridView(images: images, maxHeight: maxHeight)
+            ImageGridView(images: images)
         }
     }
 }
 
 struct SingleImageView: View {
     let image: AppBskyLexicon.Embed.ImagesDefinition.ViewImage
-    let maxHeight: CGFloat
+    
+    // Calculate height based on aspect ratio, with fallback to maxHeight
+    private var calculatedHeight: CGFloat {
+        guard let aspectRatio = image.aspectRatio else {
+            return PostImagesView.Constants.maxHeight
+        }
+        
+        let ratio = CGFloat(aspectRatio.height) / CGFloat(aspectRatio.width)
+        let calculatedHeight = PostImagesView.Constants.maxWidth * ratio
+        
+        // Ensure we don't exceed maxHeight
+        return min(calculatedHeight, PostImagesView.Constants.maxHeight)
+    }
     
     var body: some View {
         AsyncImage(url: image.thumbnailImageURL) { phase in
             switch phase {
             case .empty:
-                ProgressView()
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(height: calculatedHeight)
+                    .cornerRadius(12)
             case .success(let image):
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(maxHeight: maxHeight)
+                    .frame(maxHeight: PostImagesView.Constants.maxHeight)
                     .cornerRadius(12)
             case .failure:
-                Image(systemName: "photo")
-                    .foregroundColor(.gray)
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(height: calculatedHeight)
                     .cornerRadius(12)
+                    .overlay(
+                        Image(systemName: "photo")
+                            .foregroundColor(.gray)
+                    )
             @unknown default:
                 EmptyView()
             }
@@ -42,7 +66,19 @@ struct SingleImageView: View {
 
 struct ImageGridView: View {
     let images: [AppBskyLexicon.Embed.ImagesDefinition.ViewImage]
-    let maxHeight: CGFloat
+    
+    // Calculate height for grid items based on aspect ratio, with fallback
+    private func calculatedHeight(for image: AppBskyLexicon.Embed.ImagesDefinition.ViewImage) -> CGFloat {
+        guard let aspectRatio = image.aspectRatio else {
+            return PostImagesView.Constants.maxHeight / 2
+        }
+        
+        let ratio = CGFloat(aspectRatio.height) / CGFloat(aspectRatio.width)
+        let calculatedHeight = (PostImagesView.Constants.maxWidth / 2) * ratio
+        
+        // Ensure we don't exceed maxHeight/2 for grid layout
+        return min(calculatedHeight, PostImagesView.Constants.maxHeight / 2)
+    }
     
     var body: some View {
         LazyVGrid(columns: [
@@ -53,18 +89,26 @@ struct ImageGridView: View {
                 AsyncImage(url: image.thumbnailImageURL) { phase in
                     switch phase {
                     case .empty:
-                        ProgressView()
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(height: calculatedHeight(for: image))
+                            .cornerRadius(12)
                     case .success(let image):
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(height: maxHeight / 2)
+                            .frame(height: PostImagesView.Constants.maxHeight / 2)
                             .clipped()
                             .cornerRadius(12)
                     case .failure:
-                        Image(systemName: "photo")
-                            .foregroundColor(.gray)
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(height: calculatedHeight(for: image))
                             .cornerRadius(12)
+                            .overlay(
+                                Image(systemName: "photo")
+                                    .foregroundColor(.gray)
+                            )
                     @unknown default:
                         EmptyView()
                     }
