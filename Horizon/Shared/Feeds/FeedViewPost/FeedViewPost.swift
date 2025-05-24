@@ -11,7 +11,6 @@ import SwiftUI
 public struct FeedViewPost: View {
     let viewModel: ViewModel
     @State private var headerOffset: CGFloat = 0
-    @State private var authorContextHeight: CGFloat = 0
     @Environment(Router.self) private var router
     @Environment(\.currentTab) private var currentTab
     
@@ -19,7 +18,7 @@ public struct FeedViewPost: View {
         VStack(alignment: .leading, spacing: 0) {
             if viewModel.isEmbeddedPost {
                 HStack(alignment: .center, spacing: 8) {
-                    FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: authorContextHeight, authorDID: viewModel.author.actorDID)
+                    FeedProfilePictureView(avatarURL: viewModel.author.avatarImageURL, imageLength: UIFont.preferredFont(forTextStyle: .callout).lineHeight, authorDID: viewModel.author.actorDID)
                     HStack(spacing: 4) {
                         FeedAuthorContextView(author: viewModel.author)
                             .layoutPriority(-1)
@@ -27,7 +26,6 @@ public struct FeedViewPost: View {
                         PostTimestampView(timestamp: viewModel.relativeTimestamp)
                             .layoutPriority(1)
                     }
-                    .readFrame { frame in authorContextHeight = frame.height }
                 }
                 FeedTextView(text: viewModel.text)
                 FeedAttachmentView(embed: viewModel.embed)
